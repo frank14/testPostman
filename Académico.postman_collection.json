@@ -1,0 +1,3192 @@
+{
+	"info": {
+		"_postman_id": "3f42e5d8-a8d5-4863-99c6-ecfa2a0b15ac",
+		"name": "Automatización Académico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "academic-calendar-controller",
+			"item": [
+				{
+					"name": "/calendar/academic-calendars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-calendars",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-calendars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-calendars/years-periods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-calendars/years-periods",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-calendars",
+								"years-periods"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "academic-calendar-program-controller",
+			"item": []
+		},
+		{
+			"name": "academic-dropout-controller",
+			"item": [
+				{
+					"name": "/plannig/academic-dropout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/plannig/academic-dropout",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"plannig",
+								"academic-dropout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "academic-period-controller",
+			"item": [
+				{
+					"name": "/calendar/academic-periods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-periods/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-periods/current",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros En Construcción', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('C')\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									"/**Probar si la fecha inicial y/o final se pasa de la fecha de hoy no se deberían mostrar aquí */"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods/current",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-periods/findByStatusNot/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros De Tipo A', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.eql('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods/findByStatusNot/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods",
+								"findByStatusNot",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-periods/findByStatusNot/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros De Tipo I', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.eql('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods/findByStatusNot/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods",
+								"findByStatusNot",
+								"I"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-periods/findByStatusNot/{status}C",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros De Tipo C', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.eql('C')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods/findByStatusNot/C",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods",
+								"findByStatusNot",
+								"C"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/academic-periods/inscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Inscripciones', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.equal('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/academic-periods/inscription",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"academic-periods",
+								"inscription"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "academic-planning-controller",
+			"item": []
+		},
+		{
+			"name": "activity-category-controller",
+			"item": [
+				{
+					"name": "/calendar/activity-categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/activity-categories",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"activity-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/activity-categories/OnlyActive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/activity-categories/OnlyActive",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"activity-categories",
+								"OnlyActive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admission-requirement-controller",
+			"item": [
+				{
+					"name": "/inscription/admission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/admission",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"admission"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "aspirant-controller",
+			"item": []
+		},
+		{
+			"name": "block-controller",
+			"item": [
+				{
+					"name": "/block",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/block",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/block/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/block/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"block",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "broadcast-media-controller",
+			"item": [
+				{
+					"name": "/incription/broadcast-media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/incription/broadcast-media",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"incription",
+								"broadcast-media"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "calendar-activity-controller",
+			"item": [
+				{
+					"name": "/calendar/calendar-activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/calendar-activities",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"calendar-activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar/calendar-activities/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/calendar/calendar-activities/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"calendar",
+								"calendar-activities",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "calendar-detail-controller",
+			"item": []
+		},
+		{
+			"name": "campus-controller",
+			"item": [
+				{
+					"name": "/campus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/campus",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"campus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/campus/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/campus/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"campus",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/campus/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/campus/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"campus",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/campus/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/campus/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"campus",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/campus/withoutfloor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Con Pisos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.floor).to.eql(0)\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/campus/withoutfloor",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"campus",
+								"withoutfloor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "civil-status-controller",
+			"item": [
+				{
+					"name": "/inscription/civil-statuss",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/civil-statuss",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"civil-statuss"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "class-controller",
+			"item": [
+				{
+					"name": "/classroom-type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/classroom-type",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"classroom-type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/classroom-type/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/classroom-type/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"classroom-type",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "classroom-availability-controller",
+			"item": [
+				{
+					"name": "/classroom-availability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/classroom-availability",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"classroom-availability"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "classroom-controller",
+			"item": [
+				{
+					"name": "/classroom",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/classroom",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/classroom/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/classroom/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"classroom",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "co-requisites-controller",
+			"item": [
+				{
+					"name": "/pensum/coRequisites",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/coRequisites",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"coRequisites"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "component-controller",
+			"item": [
+				{
+					"name": "/pensum/component",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/component",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"component"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/component/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/component/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"component",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/component/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/component/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"component",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/component/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/component/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"component",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "country-controller",
+			"item": [
+				{
+					"name": "/country",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/country",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"country"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "date-teaching-availability-controller",
+			"item": [
+				{
+					"name": "/administrative/dateTeachingAvailability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/administrative/dateTeachingAvailability",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"administrative",
+								"dateTeachingAvailability"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dean-controller",
+			"item": [
+				{
+					"name": "/dean",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/dean",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"dean"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dean/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/dean/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"dean",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "department-controller",
+			"item": [
+				{
+					"name": "/department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/department",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"department"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "director-controller",
+			"item": [
+				{
+					"name": "/director",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/director",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"director"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/director/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/director/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"director",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/director/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/director/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"director",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/director/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/director/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"director",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "document-type-controller",
+			"item": [
+				{
+					"name": "/inscription/document-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/document-types",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"document-types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "educational-institution-controller",
+			"item": [
+				{
+					"name": "/inscription/educational-institutions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/educational-institutions",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"educational-institutions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "enterprise-controller",
+			"item": [
+				{
+					"name": "/inscription/enterprises",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/enterprises",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"enterprises"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "enums-controller",
+			"item": [
+				{
+					"name": "/configuration/calendar/periodicity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/calendar/periodicity",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"calendar",
+								"periodicity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/inscription/dedication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/inscription/dedication",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"inscription",
+								"dedication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/inscription/training",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/inscription/training",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"inscription",
+								"training"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "faculty-controller",
+			"item": [
+				{
+					"name": "/inscription/faculties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/faculties",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/faculties/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/faculties/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"faculties",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/faculties/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/faculties/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"faculties",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/faculties/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/faculties/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"faculties",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "familiary-data-controller",
+			"item": []
+		},
+		{
+			"name": "group-controller",
+			"item": [
+				{
+					"name": "/group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/group",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group-detail-controller",
+			"item": [
+				{
+					"name": "/groupDetail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/groupDetail",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"groupDetail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inscription-admission-controller",
+			"item": []
+		},
+		{
+			"name": "inscription-controller",
+			"item": [
+				{
+					"name": "/inscription/query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Username",
+								"value": "admin",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"personQuery\": {},\r\n  \"programQuery\": {},\r\n  \"academicPeriod\": {\r\n    \"year\": 2021,\r\n    \"period\": 1\r\n  },\r\n  \"groupQuery\": \"REVIEWS\",\r\n  \"querySort\": {\r\n    \"fields\": \"creationDate\",\r\n    \"order\": \"ASC\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ruta}}/inscription/query-filter",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"query-filter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inscription-form-controller",
+			"item": []
+		},
+		{
+			"name": "inscription-public-controller",
+			"item": [
+				{
+					"name": "/inscription/public/broadcast-medias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/broadcast-medias",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"broadcast-medias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/civil-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/civil-status",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"civil-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/config",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/countries",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/document-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/document-types",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"document-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/educational-institutions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/educational-institutions",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"educational-institutions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/inscription-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/inscription-types",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"inscription-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/journals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/journals",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"journals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/languages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/languages",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"languages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/public/type-programs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/public/type-programs",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"public",
+								"type-programs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inscription-requirement-controller",
+			"item": [
+				{
+					"name": "/inscription-requirement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription-requirement",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription-requirement"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inscription-type-controller",
+			"item": [
+				{
+					"name": "/inscription/inscription-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/inscription-types",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"inscription-types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inscriptions-reports-controller",
+			"item": [
+				{
+					"name": "/inscriptions/reports/campus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscriptions/reports/campus",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscriptions",
+								"reports",
+								"campus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscriptions/reports/study-days",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscriptions/reports/study-days",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscriptions",
+								"reports",
+								"study-days"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscriptions/reports/type-programs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscriptions/reports/type-programs",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscriptions",
+								"reports",
+								"type-programs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "journal-controller",
+			"item": [
+				{
+					"name": "/inscription/journals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/journals",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"journals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/journals/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/journals/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"journals",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/journals/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/journals/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"journals",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/journals/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/journals/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"journals",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "languaje-controller",
+			"item": [
+				{
+					"name": "/inscription/languajes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/languajes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"languajes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "languaje-data-controller",
+			"item": [
+				{
+					"name": "/inscription/languajes/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/languajes/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"languajes",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "municipality-controller",
+			"item": [
+				{
+					"name": "/municipality",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/municipality",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"municipality"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pensum-controller",
+			"item": [
+				{
+					"name": "/pensum/pensums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/pensums",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"pensums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/pensums/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferente De A', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.eql('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/pensums/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"pensums",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/pensums/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferente De I', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.id).to.eql('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/pensums/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"pensums",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "percentaje-controller",
+			"item": [
+				{
+					"name": "/planeacion/percentaje/period",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/planeacion/percentaje/period",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"planeacion",
+								"percentaje",
+								"period"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pre-requirements-controller",
+			"item": [
+				{
+					"name": "/pensum/preRequirements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/preRequirements",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"preRequirements"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "program-admission-requirement-controller",
+			"item": []
+		},
+		{
+			"name": "program-campus-journal-controller",
+			"item": [
+				{
+					"name": "/programcampusjournal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/programcampusjournal",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"programcampusjournal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "program-registration-requirement-controlller",
+			"item": []
+		},
+		{
+			"name": "programs-controller",
+			"item": [
+				{
+					"name": "/pensum/programs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/programs",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"programs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/programs/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/programs/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"programs",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/programs/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/programs/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"programs",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/programs/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/programs/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"programs",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/programs/planning",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/programs/planning",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"programs",
+								"planning"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "registration-requirement-controller",
+			"item": [
+				{
+					"name": "/inscription/registrations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/registrations",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"registrations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/registrations/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/registrations/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"registrations",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/registrations/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/registrations/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"registrations",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "report-controller",
+			"item": []
+		},
+		{
+			"name": "role-controller",
+			"item": [
+				{
+					"name": "/inscription/roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/roles",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "studies-data-controller",
+			"item": []
+		},
+		{
+			"name": "subject-controller",
+			"item": [
+				{
+					"name": "/pensum/subject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/subject",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"subject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/subject/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/subject/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"subject",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/subject/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/subject/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"subject",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/subject/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/subject/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"subject",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "subject-pensum-controller",
+			"item": [
+				{
+					"name": "/pensum/subjectpensum",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/subjectpensum",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"subjectpensum"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teacher-controller",
+			"item": [
+				{
+					"name": "/teacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/teacher",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teaching-availability-controller",
+			"item": [
+				{
+					"name": "/administrative/teachingAvailability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/administrative/teachingAvailability",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"administrative",
+								"teachingAvailability"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "type-program-controller",
+			"item": [
+				{
+					"name": "/inscription/types-program",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/types-program",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"types-program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/types-program/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/types-program/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"types-program",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/inscription/types-program/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/inscription/types-program/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"inscription",
+								"types-program",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "types-calification-service-controller",
+			"item": [
+				{
+					"name": "/pensum/typecalification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/typecalification",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"typecalification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/typecalification/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/typecalification/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"typecalification",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/typecalification/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/typecalification/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"typecalification",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "types-subject-controller",
+			"item": [
+				{
+					"name": "/pensum/typesubject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/typesubject",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"typesubject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/typesubject/findByStatus/{status}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/typesubject/findByStatus/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"typesubject",
+								"findByStatus",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pensum/typesubject/findByStatus/{status}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Activos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('A')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/pensum/typesubject/findByStatus/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"pensum",
+								"typesubject",
+								"findByStatus",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user-program-controller",
+			"item": []
+		},
+		{
+			"name": "work-data-controller",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200, 201 or 204\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ruta",
+			"value": "https://academic-dot-academico-qa.appspot.com"
+		}
+	]
+}
