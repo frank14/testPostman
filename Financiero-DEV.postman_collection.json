@@ -1,0 +1,4232 @@
+{
+	"info": {
+		"_postman_id": "575af68e-8a57-404a-b39e-c5c3281e0759",
+		"name": "Automatización Financiero DEV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "academic-controller",
+			"item": [
+				{
+					"name": "/data/Country",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/data/Country",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"data",
+								"Country"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/data/department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/data/department",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"data",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/data/document-types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/data/document-types",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"data",
+								"document-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/data/municipality",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/data/municipality",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"data",
+								"municipality"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/data/postal-codes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/data/postal-codes?page=0&size=100",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"data",
+								"postal-codes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account-controller",
+			"item": [
+				{
+					"name": "/account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/findAllNotFather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/findAllNotFather",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"findAllNotFather"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/findByAccountType/{type}A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Activo', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.accountType).to.not.include('P')\r",
+									"        pm.expect(item.accountType).to.not.include('T')\r",
+									"        pm.expect(item.accountType).to.not.include('G')\r",
+									"        pm.expect(item.accountType).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/findByAccountType/A",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"findByAccountType",
+								"A"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/findByAccountType/{type}P",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Pasivo', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.accountType).to.not.include('A')\r",
+									"        pm.expect(item.accountType).to.not.include('T')\r",
+									"        pm.expect(item.accountType).to.not.include('G')\r",
+									"        pm.expect(item.accountType).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/findByAccountType/P",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"findByAccountType",
+								"P"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/findByAccountType/{type}T",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Patrimonio', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.accountType).to.not.include('A')\r",
+									"        pm.expect(item.accountType).to.not.include('P')\r",
+									"        pm.expect(item.accountType).to.not.include('G')\r",
+									"        pm.expect(item.accountType).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/findByAccountType/T",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"findByAccountType",
+								"T"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/findByAccountType/{type}G",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Gastos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.accountType).to.not.include('A')\r",
+									"        pm.expect(item.accountType).to.not.include('P')\r",
+									"        pm.expect(item.accountType).to.not.include('T')\r",
+									"        pm.expect(item.accountType).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/findByAccountType/G",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"findByAccountType",
+								"G"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/account/findByAccountType/{type}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Ingreso', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.accountType).to.not.include('A')\r",
+									"        pm.expect(item.accountType).to.not.include('P')\r",
+									"        pm.expect(item.accountType).to.not.include('T')\r",
+									"        pm.expect(item.accountType).to.not.include('G')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/account/findByAccountType/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"account",
+								"findByAccountType",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "accounting-document-controller",
+			"item": [
+				{
+					"name": "/AccountingDocument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/findDocumentWithoutProcess",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/findDocumentWithoutProcess",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"findDocumentWithoutProcess"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/process/{process}TESORERIA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A TESORERIA', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.process).to.not.include('CARTERA')\r",
+									"        pm.expect(item.process).to.not.include('PROVEEDORES')\r",
+									"        pm.expect(item.process).to.not.include('INVENTARIO')\r",
+									"        pm.expect(item.process).to.not.include('CONTABILIDAD')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/process/TESORERIA",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"process",
+								"TESORERIA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/process/{process}CARTERA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A CARTERA', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.process).to.not.include('TESORERIA')\r",
+									"        pm.expect(item.process).to.not.include('PROVEEDORES')\r",
+									"        pm.expect(item.process).to.not.include('INVENTARIO')\r",
+									"        pm.expect(item.process).to.not.include('CONTABILIDAD')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/process/CARTERA",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"process",
+								"CARTERA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/process/{process}PROVEEDORES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A PROVEEDORES', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.process).to.not.include('TESORERIA')\r",
+									"        pm.expect(item.process).to.not.include('CARTERA')\r",
+									"        pm.expect(item.process).to.not.include('INVENTARIO')\r",
+									"        pm.expect(item.process).to.not.include('CONTABILIDAD')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/process/PROVEEDORES",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"process",
+								"PROVEEDORES"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/process/{process}INVENTARIO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A INVENTARIO', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.process).to.not.include('TESORERIA')\r",
+									"        pm.expect(item.process).to.not.include('CARTERA')\r",
+									"        pm.expect(item.process).to.not.include('PROVEEDORES')\r",
+									"        pm.expect(item.process).to.not.include('CONTABILIDAD')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/process/INVENTARIO",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"process",
+								"INVENTARIO"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/AccountingDocument/process/{process}CONTABILIDAD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A CONTABILIDAD', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.process).to.not.include('TESORERIA')\r",
+									"        pm.expect(item.process).to.not.include('CARTERA')\r",
+									"        pm.expect(item.process).to.not.include('PROVEEDORES')\r",
+									"        pm.expect(item.process).to.not.include('INVENTARIO')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/AccountingDocument/process/CONTABILIDAD",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"AccountingDocument",
+								"process",
+								"CONTABILIDAD"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "accounting-entries-controller",
+			"item": [
+				{
+					"name": "/accountingEntries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/accountingEntries",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"accountingEntries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "activity-economic-controller",
+			"item": [
+				{
+					"name": "/activityEconomicController",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/activityEconomicController",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"activityEconomicController"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/activityEconomicController/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/activityEconomicController/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"activityEconomicController",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "agreement-controller",
+			"item": [
+				{
+					"name": "/agreement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/agreement",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"agreement"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "asobancaria-config-controller",
+			"item": [
+				{
+					"name": "/asobancariaConfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/asobancariaConfig",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"asobancariaConfig"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/asobancariaConfig/getAsobancariaConfigActive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/** \r",
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/asobancariaConfig/getAsobancariaConfigActive",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"asobancariaConfig",
+								"getAsobancariaConfigActive"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "attribute-management-controller",
+			"item": [
+				{
+					"name": "/attributeManagement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/attributeManagement",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"attributeManagement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/attributeManagement/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/attributeManagement/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"attributeManagement",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bank-collection-controller",
+			"item": []
+		},
+		{
+			"name": "bank-controller",
+			"item": [
+				{
+					"name": "/bank",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/bank",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"bank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/bank/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/bank/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"bank",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bank-crossing-controller",
+			"item": [
+				{
+					"name": "/bankCrossing/test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/bankCrossing/test",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"bankCrossing",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bank-for-crossing-controller",
+			"item": [
+				{
+					"name": "/BankForCrossingController",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/BankForCrossingController",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"BankForCrossingController"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "base-controller",
+			"item": [
+				{
+					"name": "/base",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/base",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"base"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/base/associations-free/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Circulares', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.id).to.not.eql(1)\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/base/associations-free/1",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"base",
+								"associations-free",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/base/findAllNotFather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Padres', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.isFather).to.be.false\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/base/findAllNotFather",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"base",
+								"findAllNotFather"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "billing-concept-controller",
+			"item": [
+				{
+					"name": "/billingConcept",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/active/unlocked",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Bloqueados', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.locked.yesOrNot).to.not.include('S')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/active/unlocked",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"active",
+								"unlocked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/actives/income",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Tipo I', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.type).to.equal('I')\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/actives/income",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"actives",
+								"income"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/actives/settlementBy{code}P",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo P', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.settlementBy).to.not.include('E')\r",
+									"        pm.expect(item.settlementBy).to.not.include('Y')\r",
+									"        pm.expect(item.settlementBy).to.not.include('N')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/actives/settlementBy?settlementByCodes=P",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"actives",
+								"settlementBy"
+							],
+							"query": [
+								{
+									"key": "settlementByCodes",
+									"value": "P"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/actives/settlementBy{code}E",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo E', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.settlementBy).to.not.include('P')\r",
+									"        pm.expect(item.settlementBy).to.not.include('Y')\r",
+									"        pm.expect(item.settlementBy).to.not.include('N')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/actives/settlementBy?settlementByCodes=E",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"actives",
+								"settlementBy"
+							],
+							"query": [
+								{
+									"key": "settlementByCodes",
+									"value": "E"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/actives/settlementBy{code}Y",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo Y', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.settlementBy).to.not.include('P')\r",
+									"        pm.expect(item.settlementBy).to.not.include('E')\r",
+									"        pm.expect(item.settlementBy).to.not.include('N')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/actives/settlementBy?settlementByCodes=Y",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"actives",
+								"settlementBy"
+							],
+							"query": [
+								{
+									"key": "settlementByCodes",
+									"value": "Y"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/actives/settlementBy{code}N",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo N', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.settlementBy).to.not.include('P')\r",
+									"        pm.expect(item.settlementBy).to.not.include('E')\r",
+									"        pm.expect(item.settlementBy).to.not.include('Y')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/actives/settlementBy?settlementByCodes=N",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"actives",
+								"settlementBy"
+							],
+							"query": [
+								{
+									"key": "settlementByCodes",
+									"value": "N"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/Collect",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/Collect",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"Collect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/Liquidate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/Liquidate",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"Liquidate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/type/{type}D",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo D', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.type).to.not.include('R')\r",
+									"        pm.expect(item.type).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/type/D",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"type",
+								"D"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/type/{type}R",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo R', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.type).to.not.include('D')\r",
+									"        pm.expect(item.type).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/type/R",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"type",
+								"R"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/billingConcept/type/{type}I",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes De Tipo I', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.type).to.not.include('D')\r",
+									"        pm.expect(item.type).to.not.include('R')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billingConcept/type/I",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billingConcept",
+								"type",
+								"I"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "billing-concept-controller-v2",
+			"item": [
+				{
+					"name": "/v2/billing-concept",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/v2/billing-concept",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"v2",
+								"billing-concept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v2/billing-concept/actives/unlock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/v2/billing-concept/actives/unlock",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"v2",
+								"billing-concept",
+								"actives",
+								"unlock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/v2/billing-concept/list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/v2/billing-concept/list?idsList=1",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"v2",
+								"billing-concept",
+								"list"
+							],
+							"query": [
+								{
+									"key": "idsList",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "billing-concept-discount-controller",
+			"item": [
+				{
+					"name": "/billing-concept-discount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billing-concept-discount",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billing-concept-discount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "billing-concept-surcharge-controller",
+			"item": [
+				{
+					"name": "/billing-concept-surcharge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billing-concept-surcharge",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billing-concept-surcharge"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "billing-concept-tax-category-controller",
+			"item": [
+				{
+					"name": "/billing-concept-tax-category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/billing-concept-tax-category",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"billing-concept-tax-category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Boxes-Cashier-Controller",
+			"item": [
+				{
+					"name": "/boxes-cashier/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/boxes-cashier/",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"boxes-cashier",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "boxes-controller",
+			"item": [
+				{
+					"name": "/boxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/boxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"boxes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/boxes/unlocked",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"var locked = data[0].locked; //data is array\r",
+									"var nullValue = null;\r",
+									"\r",
+									"pm.test(\"No Deben Existir Registros Bloqueados\", function(){\r",
+									"    pm.expect(nullValue).to.be.eql(locked);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/boxes/unlocked",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"boxes",
+								"unlocked"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "card-controllers",
+			"item": [
+				{
+					"name": "/card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/card",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"card"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cash-receipt-controller",
+			"item": [
+				{
+					"name": "/cashReceipt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/cashReceipt",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"cashReceipt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cash-register-controller",
+			"item": [
+				{
+					"name": "/cashRegister",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/cashRegister",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"cashRegister"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cashRegister/boxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/cashRegister/boxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"cashRegister",
+								"boxes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cashRegister/openedBoxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/cashRegister/openedBoxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"cashRegister",
+								"openedBoxes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cashier-controller",
+			"item": [
+				{
+					"name": "/cashier",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/cashier",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"cashier"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "close-of-boxes-controller",
+			"item": [
+				{
+					"name": "/closeOfBoxes/boxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/closeOfBoxes/boxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"closeOfBoxes",
+								"boxes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/closeOfBoxes/cashRegisterClosing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/closeOfBoxes/cashRegisterClosing",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"closeOfBoxes",
+								"cashRegisterClosing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/closeOfBoxes/openedBoxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/closeOfBoxes/openedBoxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"closeOfBoxes",
+								"openedBoxes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "code-bank-controller",
+			"item": [
+				{
+					"name": "/CodeBank",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/CodeBank",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"CodeBank"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cost-center-controller",
+			"item": [
+				{
+					"name": "/costCenter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/costCenter",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"costCenter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/costCenter/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/costCenter/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"costCenter",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/costCenter/associationsFree",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Circulares', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.id).to.not.eql(1)\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/costCenter/associations-free/1",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"costCenter",
+								"associations-free",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/costCenter/findAllNotFather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Padres', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.isFather).to.be.false\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/costCenter/findAllNotFather",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"costCenter",
+								"findAllNotFather"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "credit-balance-controller",
+			"item": [
+				{
+					"name": "/creditBalance/consecutive",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/creditBalance/consecutive",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"creditBalance",
+								"consecutive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "departure-controller",
+			"item": []
+		},
+		{
+			"name": "discount-billing-concept-controller",
+			"item": [
+				{
+					"name": "/discountBillingConcept",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/discountBillingConcept",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"discountBillingConcept"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "document-annulment-reason-controller",
+			"item": [
+				{
+					"name": "/documentAnnulmentReason/actives",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/documentAnnulmentReason/actives",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"documentAnnulmentReason",
+								"actives"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "enums-controller",
+			"item": [
+				{
+					"name": "/configuration/account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/account",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/bankAccountType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/bankAccountType",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"bankAccountType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/boxStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/boxStatus",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"boxStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/card",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/AccountingDocument/process",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/AccountingDocument/process",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"AccountingDocument",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/Asobancaria/TypeDocToGenerate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/Asobancaria/TypeDocToGenerate",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"Asobancaria",
+								"TypeDocToGenerate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept/accountingTransaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept/accountingTransaction",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept",
+								"accountingTransaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept/assignmentType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept/assignmentType",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept",
+								"assignmentType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept/criterion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept/criterion",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept",
+								"criterion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept/type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept/type",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept",
+								"type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept/typeAssignment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept/typeAssignment",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept",
+								"typeAssignment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConcept/typeValue",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConcept/typeValue",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConcept",
+								"typeValue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/BillingConceptDiscount/typeValue",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/BillingConceptDiscount/typeValue",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"BillingConceptDiscount",
+								"typeValue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/StatusCrossing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/StatusCrossing",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"StatusCrossing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/StatusFileBank",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/StatusFileBank",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"StatusFileBank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/taxCategory/category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/taxCategory/category",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"taxCategory",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/template/templateType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/template/templateType",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"template",
+								"templateType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/finance/Type_line",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/finance/Type_line",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"finance",
+								"Type_line"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/ratelist/typeIncreaseRateList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/ratelist/typeIncreaseRateList",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"ratelist",
+								"typeIncreaseRateList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/role-third",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/role-third",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"role-third"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/settlementStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/settlementStatus",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"settlementStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/squareType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/squareType",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"squareType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/status",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/configuration/yesOrNot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/configuration/yesOrNot",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"configuration",
+								"yesOrNot"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "file-bank-controller",
+			"item": [
+				{
+					"name": "/FileBank",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/FileBank",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"FileBank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/FileBank/consecutive",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/FileBank/consecutive",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"FileBank",
+								"consecutive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/FileBank/search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": {\r\n    \"dateFrom\": \"01/10/2020\",\r\n    \"dateTo\": \"07/04/2021\"\r\n  },\r\n  \"size\": 5,\r\n  \"page\": 0,\r\n  \"order\": null,\r\n  \"columnOrder\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ruta}}/FileBank/search",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"FileBank",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "finance-third-controller",
+			"item": [
+				{
+					"name": "/financeThird",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/financeThird",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"financeThird"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/financeThird/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/financeThird/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"financeThird",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/financeThird/find/{name}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ruta}}/financeThird/find/a",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"financeThird",
+								"find",
+								"a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "financial-profiles-controller",
+			"item": [
+				{
+					"name": "/financial/profiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/financial/profiles",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"financial",
+								"profiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/financial/profiles/unlocked",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"var locked = data[0].locked; //data is array\r",
+									"var nullValue = null;\r",
+									"\r",
+									"pm.test(\"No Deben Existir Registros Bloqueados\", function(){\r",
+									"    pm.expect(nullValue).to.be.eql(locked);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/financial/profiles/unlocked",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"financial",
+								"profiles",
+								"unlocked"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fiscal-category-controller",
+			"item": [
+				{
+					"name": "/FiscalCategoryController",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/FiscalCategoryController",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"FiscalCategoryController"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/FiscalCategoryController/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/FiscalCategoryController/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"FiscalCategoryController",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fiscal-responsibility-controller",
+			"item": [
+				{
+					"name": "/fiscalResponsibilityController",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/fiscalResponsibilityController",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"fiscalResponsibilityController"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fiscalResponsibilityController/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/fiscalResponsibilityController/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"fiscalResponsibilityController",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "general-increase-of-rate-list-controller",
+			"item": [
+				{
+					"name": "/generalincreaseofratelist/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/generalincreaseofratelist/",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"generalincreaseofratelist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/generalincreaseofratelist/actives",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/generalincreaseofratelist/actives",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"generalincreaseofratelist",
+								"actives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/generalincreaseofratelist/activesandvalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/generalincreaseofratelist/activesandvalid",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"generalincreaseofratelist",
+								"activesandvalid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "issuing-controller",
+			"item": [
+				{
+					"name": "/issuing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/issuing",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"issuing"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "opening-box-controller",
+			"item": [
+				{
+					"name": "/openingBox/boxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/openingBox/boxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"openingBox",
+								"boxes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/openingBox/findAllForOpenBoxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/openingBox/findAllForOpenBoxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"openingBox",
+								"findAllForOpenBoxes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment-forms-controller",
+			"item": [
+				{
+					"name": "/paymentForms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/paymentForms",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"paymentForms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/paymentForms/NotCash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros De Nombre Efectivo', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.name).to.not.include('Efectivo')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/paymentForms/NotCash",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"paymentForms",
+								"NotCash"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "process-by-document-type-controller",
+			"item": [
+				{
+					"name": "/processByDocumentType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/processByDocumentType",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"processByDocumentType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/processByDocumentType/cash-receipt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A 005', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.accountingDocument.code).to.equal('005')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/processByDocumentType/cash-receipt",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"processByDocumentType",
+								"cash-receipt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/processByDocumentType/cash-receipt/unlocked",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Bloqueados', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.locked.yesOrNot).to.not.include('S')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/processByDocumentType/cash-receipt/unlocked",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"processByDocumentType",
+								"cash-receipt",
+								"unlocked"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "queues-controller",
+			"item": []
+		},
+		{
+			"name": "rate-category-controller",
+			"item": [
+				{
+					"name": "/ratecetegory/actives",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratecetegory/actives",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratecetegory",
+								"actives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ratecetegory/find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratecetegory/find",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratecetegory",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ratecetegory/findbycriterial",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratecetegory/findbycriterial",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratecetegory",
+								"findbycriterial"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rate-list-controller",
+			"item": [
+				{
+					"name": "/ratelist/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratelist/",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratelist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ratelist/actives",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratelist/actives",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratelist",
+								"actives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ratelist/applyIncrease",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratelist/applyIncrease",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratelist",
+								"applyIncrease"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ratelist/currents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Naturaleza C', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.billingConcept.nature).to.equal('C')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratelist/currents",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratelist",
+								"currents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ratelist/findStandard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Diferentes A Aplica Estandar', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.applyStandard).to.equal('S')\r",
+									"    })\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/ratelist/findStandard",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"ratelist",
+								"findStandard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "report-controller",
+			"item": []
+		},
+		{
+			"name": "role-finance-controller",
+			"item": [
+				{
+					"name": "/finance/rol",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/finance/rol",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"finance",
+								"rol"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/finance/rol/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/finance/rol/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"finance",
+								"rol",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "role-third-controller",
+			"item": [
+				{
+					"name": "/finance/roleThird",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/finance/roleThird",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"finance",
+								"roleThird"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/finance/roleThird/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/finance/roleThird/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"finance",
+								"roleThird",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "settlement-controller",
+			"item": [
+				{
+					"name": "/settlement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/settlement",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"settlement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/settlement/search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": {\r\n    \"financeThirdNumberId\": \"1050963032\"\r\n  },\r\n  \"size\": 5,\r\n  \"page\": 0,\r\n  \"order\": null,\r\n  \"columnOrder\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ruta}}/settlement/search",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"settlement",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "society-controller",
+			"item": [
+				{
+					"name": "/SocietyController",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/SocietyController",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"SocietyController"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "source-controller",
+			"item": [
+				{
+					"name": "/source",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/source",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"source"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/source/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/source/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"source",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/source/associationsFree",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Circulares', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.id).to.not.eql(1)\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/source/associations-free/1",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"source",
+								"associations-free",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/source/findAllNotFather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Padres', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.isFather).to.be.false\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/source/findAllNotFather",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"source",
+								"findAllNotFather"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tax-category-controller",
+			"item": [
+				{
+					"name": "/taxCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/taxCategory",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"taxCategory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "taxes-controller",
+			"item": [
+				{
+					"name": "/taxes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/taxes",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"taxes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/taxes/active",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/taxes/active",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"taxes",
+								"active"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "template-controller",
+			"item": [
+				{
+					"name": "/template",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/template",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"template"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/template/actives",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/template/actives",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"template",
+								"actives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/template/actives/forsettlements",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"\r",
+									"pm.test('No Deben Existir Registros Inactivos', () => {\r",
+									"    _.each(jsonData, (item) => {\r",
+									"        pm.expect(item.status).to.not.include('I')\r",
+									"    })\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/template/actives/forsettlements",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"template",
+								"actives",
+								"forsettlements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/template/unlocked",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/template/unlocked",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"template",
+								"unlocked"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "third-controller",
+			"item": [
+				{
+					"name": "/third",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/third",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"third"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "type-file-bank-controller",
+			"item": [
+				{
+					"name": "/TypeFileBank",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/TypeFileBank",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"TypeFileBank"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "type-of-line-bank-controller",
+			"item": [
+				{
+					"name": "/TypeOfLineBank",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ruta}}/TypeOfLineBank",
+							"host": [
+								"{{ruta}}"
+							],
+							"path": [
+								"TypeOfLineBank"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "accessToken",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const options = {",
+					"    url: \"https://nwawakanda-dot-academico-qa.appspot.com/Usuario/v2/authenticate\",",
+					"    method: 'POST',",
+					"    header: { 'content-type': 'application/json' },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            \"password\": \"12345678\",",
+					"            \"username\": \"unicolombo\"",
+					"        })",
+					"    }",
+					"};",
+					"",
+					"pm.sendRequest(options, function (err, res) {",
+					"    var jsonData = res.json();",
+					"    if (err) {",
+					"        console.log(err);",
+					"    }",
+					"    else {",
+					"        postman.setEnvironmentVariable(\"token\", jsonData.token);",
+					"    }",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200, 201 or 204\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ruta",
+			"value": "https://finance-dot-academico-dev.appspot.com"
+		}
+	]
+}
